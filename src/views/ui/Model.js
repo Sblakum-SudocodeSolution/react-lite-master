@@ -11,16 +11,16 @@ export default function Model(props) {
     if (props.selectedItemId > 0)
       axios
         .get(
-          `https://jsonplaceholder.typicode.com/users/${props.selectedItemId}`
+          `https://alecapi.sudocodesolutions.com/api/Activity/status/${props.selectedItemId}`
         )
         .then((res) => {
           setUserData(res.data);
         });
   }, [props.selectedItemId]);
-
+    
   const rejectUser = async () => {
     await axios.delete(
-      `https://jsonplaceholder.typicode.com/users/${props.selectedItemId}`
+      `https://alecapi.sudocodesolutions.com/api/Activity/status/${props.selectedItemId}`
     );
     props.onHide();
     console.log("Reject");
@@ -49,13 +49,16 @@ export default function Model(props) {
               <b>Id :</b> {userData.id}
             </ListGroup.Item>
             <ListGroup.Item>
-              <b>UserName :</b> {userData.username}
+              <b>UserName :</b> {userData.userName}
             </ListGroup.Item>
             <ListGroup.Item>
-              <b>Name :</b> {userData.name}
+              <b>First Name :</b> {userData.firstName}
             </ListGroup.Item>
             <ListGroup.Item>
-              <b>Email :</b> {userData.email}
+              <b>Last Name :</b> {userData.lastName}
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <b>Compony Name :</b> {userData.companyName}
             </ListGroup.Item>
             <ListGroup.Item className="text-end">
               <Button variant="outline-danger" onClick={() => rejectUser()}>

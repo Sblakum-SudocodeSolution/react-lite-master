@@ -22,21 +22,14 @@ const WorkQueue = () => {
   });
 
   useEffect(() => {
-    getApiData();
     getAPIListData();
-  }, []);
+  },[]);
 
-  const getApiData = () => {
-    axios
-      .get(`https://jsonplaceholder.typicode.com/users`)
-      .then((res) => setUserData(res.data));
-  };
-
-  const apiUrl = "https://alecapi.sudocodesolutions.com/api/Activity/status?statusId=3";
+  const apiUrl = "https://alecapi.sudocodesolutions.com/api/Activity/status?statusId=1";
   // const apiUrl = "https://alecapi.sudocodesolutions.com/api/Activity/list";
   const authToken = localStorage.getItem("loggedinToken");
 
-  const getAPIListData = (e) => {
+  const getAPIListData = () => {
     axios
       .get(apiUrl, {
         headers: {
@@ -44,8 +37,9 @@ const WorkQueue = () => {
           "Content-Type": "application/json",
         },
       })
-      .then((response) => {
-        console.log("Data : ", response);
+      .then((res) => {
+        setUserData(res.data);
+        console.log("data : ",res.data);
       })
       .catch((error) => {
         console.log("Err : ", error);
@@ -72,24 +66,26 @@ const WorkQueue = () => {
                       <TableRow>
                         <TableCell>Id</TableCell>
                         <TableCell>UserName</TableCell>
-                        <TableCell>Name</TableCell>
-                        <TableCell>Email</TableCell>
+                        <TableCell>FirstName</TableCell>
+                        <TableCell>LastName</TableCell>
+                        <TableCell>ComponyName</TableCell>
                       </TableRow>
                     </TableHead>
                     <TableBody>
                       {userData.map((item) => (
                         <TableRow key={item.id}>
-                          <TableCell>{item.id}</TableCell>
-                          <TableCell>{item.username}</TableCell>
-                          <TableCell>{item.name}</TableCell>
-                          <TableCell>{item.email}</TableCell>
+                          <TableCell>{item.requestId}</TableCell>
+                          <TableCell>{item.userName}</TableCell>
+                          <TableCell>{item.firstName}</TableCell>
+                          <TableCell>{item.lastName}</TableCell>
+                          <TableCell>{item.companyName}</TableCell>
                           <TableCell>
                             <Button
                               variant="outlined"
                               onClick={() =>
                                 setModalShow({
                                   show: true,
-                                  selectedItemId: item.id,
+                                  selectedItemId: item.requestId,
                                 })
                               }
                             >
